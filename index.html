@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amora Moment - Wedding Content Creator Semarang</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Link Font Montserrat & Cinzel (Tetap dipertahankan untuk body dan header utama) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Link Font Playwrite NZ -->
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ:wght@100..400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================
+           DASAR & RESET
+           ============================ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Menggunakan Montserrat sebagai font dasar agar mudah dibaca */
+            font-family: 'Montserrat', sans-serif; 
+            color: #333;
+            background-color: #fcfcfc;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+        }
+
+        .accent-color {
+            color: #d4a373; /* Warna emas/krem hangat sebagai aksen */
+        }
+
+        /* Class KHUSUS untuk font Playwrite NZ */
+        .playwrite-font {
+            font-family: 'Playwrite NZ', cursive;
+            font-weight: 400;
+        }
+
+        /* ============================
+           ANIMASI SCROLL (FADE IN UP)
+           ============================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================
+           LAYOUT SECTIONS (LANDING PAGE)
+           ============================ */
+        section {
+            padding: 100px 10%; 
+            position: relative;
+        }
+
+        /* Hero Section (Bagian Paling Atas) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            
+            /* Ganti 'buku-nikah.jpeg' dengan nama file background Anda */
+            background: linear-gradient(rgba(252, 252, 252, 0.9), rgba(252, 252, 252, 0.7)), 
+                        url('buku-nikah.jpeg') center/cover fixed;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+        }
+
+        .hero .nav-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border: 1px solid #333;
+            padding: 10px 25px;
+            border-radius: 30px;
+            transition: 0.3s;
+        }
+
+        .hero .nav-links a:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            font-style: italic;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Layout Kolom Ganda (About & Why Us) */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .two-column.reverse {
+            grid-template-areas: "text image";
+        }
+        
+        .two-column.reverse .text-area { grid-area: text; }
+        .two-column.reverse .image-area { grid-area: image; }
+
+        .image-box {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-box:hover img {
+            transform: scale(1.05);
+        }
+
+        .text-area p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .quote {
+            font-style: italic;
+            font-weight: 600;
+            color: #d4a373;
+            font-size: 1.2rem;
+            border-left: 4px solid #d4a373;
+            padding-left: 20px;
+            margin-top: 30px;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background-color: #f9f5f0; 
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 
+           =========================================================
+           PENGATURAN KOTAK PRICE LIST & BACKGROUND IMAGE
+           =========================================================
+        */
+        .pricing-card {
+            /* Warna latar cadangan jika background image tidak tampil */
+            background-color: #fff; 
+            padding: 50px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 6px solid #d4a373;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            
+            /* PENTING: Setting agar background image ter-cover dengan baik */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 
+           GANTI BACKGROUND KOTAK HARGA DI SINI 
+           Ubah nama file 'bg-intimate.jpg' dengan nama file gambar Anda
+           Lapisan linear-gradient (...) ditambahkan agar teks tetap bisa dibaca meskipun menggunakan gambar. 
+        */
+        
+        .card-intimate {
+            background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('1.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-cherish {
+            background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.55)), url('2.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-ethernal {
+            background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('3.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px); 
+        }
+
+        /* Pengaturan Judul Card Pricing dengan Playwrite NZ */
+        .pricing-card h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            /* Karena Playwrite NZ tipis, diberi font-weight sedikit */
+            font-weight: 400; 
+            color: #bfa182; /* Warna font sedikit krem gelap agar cocok */
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #d4a373;
+            margin-bottom: 30px;
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            position: relative; /* Agar list berada di atas background */
+            z-index: 2;
+        }
+
+        .pricing-card ul li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            position: relative;
+            padding-left: 25px;
+            color: #555;
+            font-weight: 600; /* Ditebalkan agar terbaca di atas background foto */
+        }
+
+        .pricing-card ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #d4a373;
+            font-weight: bold;
+        }
+
+        /* How to Book / CTA Section */
+        .cta-section {
+            text-align: center;
+            background-color: #fff;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: #fdfdfd;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border: 1px solid #eaeaea;
+        }
+
+        .cta-box p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-box ul {
+            list-style: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .btn-book {
+            display: inline-block;
+            background-color: #d4a373;
+            color: white;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn-book:hover {
+            background-color: #bfa182;
+            box-shadow: 0 5px 15px rgba(212, 163, 115, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* ============================
+           RESPONSIVE (HP & TABLET)
+           ============================ */
+        @media (max-width: 900px) {
+            section {
+                padding: 70px 5%;
+            }
+
+            .two-column, .two-column.reverse {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                grid-template-areas: "image" "text";
+            }
+
+            .image-box {
+                height: 350px;
+            }
+
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="reveal">
+            <h1 class="accent-color">Amora Moment</h1>
+            <p style="font-size: 1.5rem; font-style: italic; font-weight: 300;">Get To Know Us</p>
+            <div class="nav-links">
+                <a href="#about">About Us</a>
+                <a href="#why-us">Why Us?</a>
+                <a href="#pricing">Price List</a>
+                <a href="#booking">How To Book</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ABOUT US SECTION -->
+    <section id="about">
+        <div class="section-title reveal">
+            <h2>About Us</h2>
+            <p>Turning Love into Lasting Memories</p>
+        </div>
+        
+        <div class="two-column">
+            <div class="text-area reveal">
+                <!-- JUDUL MENGGUNAKAN PLAYWRITE NZ -->
+                <h3 class="playwrite-font" style="font-size: 2.5rem; margin-bottom: 20px;">Welcome to Amora Moment</h3>
+                <p>Amora Moment hadir untuk mengabadikan momen terindah dalam hidupmu. Kami percaya, setiap detail pernikahan adalah kenangan berharga yang pantas terekam dengan indah.</p>
+                <p>Lebih dari sekadar dokumentasi, kami ingin menjadi bagian dari cerita cintamu, menyulap momen singkat menjadi memori abadi.</p>
+                <p class="quote">"Because love deserves to be remembered beautifully. With Amora Moment, your dream wedding comes true."</p>
+            </div>
+            <div class="image-area image-box reveal">
+                <img src="pasangan.jpeg" alt="Amora Moment Wedding">
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY MUST AMORA MOMENT SECTION -->
+    <section id="why-us" style="background-color: #fff;">
+        <div class="section-title reveal">
+            <h2>Why Must Amora Moment?</h2>
+            <p>Turning Love into Lasting Memories</p>
+        </div>
+        
+        <div class="two-column reverse">
+            <div class="text-area reveal">
+                <p>Karena pernikahan hanya sekali seumur hidup, Amora Moment ada untuk memastikan: setiap detik, setiap rasa, setiap kenangan terabadikan dengan indah & hangat.</p>
+                <p>Jika fotografer hadir untuk menangkap foto estetik & cantik. Amora Moment Wedding Content Creator hadir untuk menyampaikan suasana, emosi, dan detail kecil yang sering terlewat.</p>
+                <p>Bukan hanya dokumentasi, Amora Moment juga membantu bikin instastory pernikahan tanpa ganggu jalannya acara, dan menghadirkan konten TikTok seru bersama pengantin, bridesmaid, hingga keluarga.</p>
+            </div>
+            <div class="image-area image-box reveal">
+                <img src="tangan.jpeg" alt="Wedding Details">
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="pricing-section">
+        <div class="section-title reveal">
+            <h2>Price List</h2>
+            <p>Turning Love into Lasting Memories</p>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- Intimate (Tambahkan class card-intimate) -->
+            <div class="pricing-card card-intimate reveal">
+                <h3 class="playwrite-font">Intimate Package</h3>
+                <div class="price">350k</div>
+                <ul>
+                    <li>3 jam standby</li>
+                    <li>Shoot Akad / Panggih Manten / Pemberkatan</li>
+                    <li>1 Recap video (1 menit)</li>
+                    <li>5-7 story Instagram</li>
+                    <li>2 request content tiktok</li>
+                    <li>All file upload by google drive</li>
+                    <li>Editing video under 24 hours</li>
+                </ul>
+            </div>
+
+            <!-- Cherish (Tambahkan class card-cherish) -->
+            <div class="pricing-card card-cherish reveal">
+                <h3 class="playwrite-font">Cherish Package</h3>
+                <div class="price">550K</div>
+                <ul>
+                    <li>5 jam standby</li>
+                    <li>Shoot Akad, Panggih Manten dan Preparation</li>
+                    <li>1 Recap Video (1 menit)</li>
+                    <li>8 story Instagram</li>
+                    <li>1 video content tiktok</li>
+                    <li>All file upload by google drive</li>
+                    <li>Editing video under 24 hours</li>
+                </ul>
+            </div>
+
+            <!-- Eternal (Tambahkan class card-ethernal) -->
+            <div class="pricing-card card-ethernal reveal">
+                <h3 class="playwrite-font">Ethernal Package</h3>
+                <div class="price">700K</div>
+                <ul>
+                    <li>8 jam standby</li>
+                    <li>Shoot all moment in your special day</li>
+                    <li>1 Recap video (1 menit)</li>
+                    <li>12 story Instagram</li>
+                    <li>1 request content tiktok</li>
+                    <li>All file upload by google drive</li>
+                    <li>Editing video under 24 hours</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW TO BOOK SECTION (CTA) -->
+    <section id="booking" class="cta-section">
+        <div class="section-title reveal">
+            <h2>How To Book Us?</h2>
+            <p>Turning Love into Lasting Memories</p>
+        </div>
+
+        <div class="cta-box reveal">
+            <p>Klik Hubungi kami Sekarang, di sana sudah ada:</p>
+            <ul>
+                <li>Katalog & Pricelist</li>
+            </ul>
+            <p>Bisa langsung saja WhatsApp kami melalui link dibawah.<br>Tim kami siap bantuin kamu konsultasi & booking.</p>
+            <a href="https://wa.me/628196000820" target="_blank" class="btn-book">Hubungi Kami Sekarang</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Amora Moment. All Rights Reserved.</p>
+    </footer>
+
+    <!-- SCRIPT ANIMASI SCROLL -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150; 
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        reveal();
+    </script>
+</body>
+</html>
